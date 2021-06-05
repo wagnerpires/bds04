@@ -11,7 +11,7 @@ public class StandardError implements Serializable {
 	private String error;
 	private String message;
 	private String path;
-	private String errors;
+//	private String errors;
 	
 	public StandardError() {
 	}
