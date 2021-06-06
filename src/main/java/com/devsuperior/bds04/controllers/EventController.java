@@ -28,17 +28,15 @@ public class EventController {
 	private EventService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<EventDTO>> findAll(Pageable pageable) {
-		PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("name"));
-		Page<EventDTO> list = service.findAll(pageRequest);		
-		return ResponseEntity.ok().body(list);
+	public ResponseEntity<Page<EventDTO>> findAll() {
+		Page<EventDTO> page = service.findAll();		
+		return ResponseEntity.ok().body(page);
 	}
 	
 	@PostMapping
 	public ResponseEntity<EventDTO> insert(@Valid @RequestBody EventDTO dto) {
 		dto = service.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(dto.getId()).toUri();
-		return ResponseEntity.created(uri).body(dto);
+		return ResponseEntity.ok().body(dto);
 	}
 }
+
