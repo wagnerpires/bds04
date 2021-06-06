@@ -13,7 +13,7 @@ public class AppConfig {
 	@Value("${jwt.secret}")
 	private String jwtSecret;
 	
-	@Bean // Instância será um componente gerenciado pelo spring
+	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
