@@ -19,7 +19,7 @@ public class EventDTO implements Serializable {
 	private String name;
 	
 	@Null(message = "A data do evento não pode ser passada")
-	@PastOrPresent(message = "A data do produto não pode ser futura")
+	@PastOrPresent(message = "A data do evento não pode ser futura")
 	private LocalDate date;
 	
 	private String url;
