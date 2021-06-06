@@ -39,13 +39,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
        if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
            http.headers().frameOptions().disable();
             }
-
+       
        http.authorizeRequests()
        .antMatchers(PUBLIC_H2).permitAll()
-       .antMatchers(HttpMethod.POST, CLIENT_POST).permitAll()
-       .antMatchers(HttpMethod.GET, PUBLIC_GET).permitAll()       
-       .antMatchers(ADMIN).hasAnyRole("ADMIN")
- //      .antMatchers(ADMIN).hasRole("ADMIN")
-       .anyRequest().authenticated();        
+       .antMatchers(HttpMethod.GET, PUBLIC_GET).permitAll()
+       .antMatchers(HttpMethod.POST, CLIENT_POST).hasAnyRole("CLIENT")
+       .antMatchers(ADMIN).hasRole("ADMIN")
+       .anyRequest().authenticated();       
+       
     }
 }
