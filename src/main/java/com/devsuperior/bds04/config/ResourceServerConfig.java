@@ -22,11 +22,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private JwtTokenStore tokenStore;
 
-    private static final String[] PUBLIC = { "oauth/token", "/h2-console/**", "/events/**", "/cities/**" };
-    
+    private static final String[] PUBLIC = { "oauth/token", "/h2-console/**" };
     private static final String[] CLIENT_POST = { "/events/**" };
+    private static final String[] PUBLIC_GET = { "/events/**", "/cities/**" };
+    private static final String[] ADMIN = { "/events/**", "/cities/**", "/users/**"  };
     
-
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.tokenStore(tokenStore);
@@ -40,10 +40,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
            http.headers().frameOptions().disable();
             }
 
-        http.authorizeRequests()
-        .antMatchers(PUBLIC).hasAnyRole("PUBLIC")
-        .antMatchers(HttpMethod.POST, CLIENT_POST).hasAnyRole("CLIENT")
-        .anyRequest().hasAnyRole("ADMIN");        
-        
+       http.authorizeRequests()
+       .antMatchers(PUBLIC).permitAll()
+       .antMatchers(HttpMethod.POST, CLIENT_POST).permitAll()
+       .antMatchers(HttpMethod.GET, PUBLIC_GET).permitAll()       
+       .antMatchers(ADMIN).hasAnyRole("ADMIN")
+       .antMatchers(ADMIN).hasRole("ADMIN")
+       .anyRequest().authenticated();        
     }
 }

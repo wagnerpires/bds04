@@ -17,12 +17,12 @@ public class EventDTO implements Serializable {
 	@NotBlank(message = "Campo requerido")
 	private String name;
 	
-	@Null
+	@NotNull(message = "A data do evento não pode ser passada")
 	private LocalDate date;
 	
 	private String url;
 		
-	@NotNull
+	@NotNull(message = "Campo requerido")
 	private Long cityId;
 	
 	public EventDTO() {
@@ -31,7 +31,7 @@ public class EventDTO implements Serializable {
 	public EventDTO(Long id, String name, LocalDate date, String url, Long cityId) {
 		this.id = id;
 		this.name = name;
-		this.date = date;
+//		this.date = date;
 		this.url = url;
 		this.cityId = cityId;
 	}
